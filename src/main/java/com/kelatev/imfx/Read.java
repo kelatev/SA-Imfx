@@ -29,6 +29,13 @@ public class Read {
         return (DocList) unmarshaller.unmarshal(xmlFile);
     }
 
+    /**
+     * @param fis
+     * @param fileName
+     * @param ignoreRegist
+     * @return
+     * @throws IOException
+     */
     public static InputStream readFile(BufferedInputStream fis, String fileName, boolean ignoreRegist) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
@@ -61,12 +68,10 @@ public class Read {
     }
 
     /**
-     * Check file to exists from Stream.
-     *
+     * @param fis
+     * @param fileName
+     * @param ignoreRegist
      * @return
-     *     possible object is
-     *     {@link boolean }
-     *
      */
     public static boolean hasFile(BufferedInputStream fis, String fileName, boolean ignoreRegist) {
         boolean result = false;
@@ -87,6 +92,12 @@ public class Read {
         return result;
     }
 
+    /**
+     * @param imfx
+     * @return
+     * @throws IOException
+     * @throws JAXBException
+     */
     public Envelope readEnvelope(BufferedInputStream imfx) throws IOException, JAXBException {
         Envelope envelope;
 
@@ -99,6 +110,13 @@ public class Read {
         return envelope;
     }
 
+    /**
+     * @param imfx
+     * @param filename
+     * @return
+     * @throws IOException
+     * @throws JAXBException
+     */
     public DocList readDoclist(BufferedInputStream imfx, String filename) throws IOException, JAXBException {
         DocList doclist;
 

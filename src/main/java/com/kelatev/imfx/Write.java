@@ -10,18 +10,29 @@ import java.io.InputStream;
 public class Write {
 
 
-    private InputStream writeFile(InputStream imfx, InputStream fileStream, String fileName) {
+    /**
+     * @param imfx
+     * @param fileStream
+     * @param fileName
+     * @return
+     */
+    public InputStream writeFile(InputStream imfx, InputStream fileStream, String fileName) {
         return writeFile(imfx, fileStream, fileName, null);
     }
-    private InputStream writeFile(InputStream imfx, InputStream fileStream, String fileName, InputStream sign) {
+    public InputStream writeFile(InputStream imfx, InputStream fileStream, String fileName, InputStream sign) {
         return null;
     }
 
 
-    private InputStream addDoclist(InputStream imfx, DocList docList) {
+    /**
+     * @param imfx
+     * @param docList
+     * @return
+     */
+    public InputStream addDoclist(InputStream imfx, DocList docList) {
         return addDoclist(imfx, docList);
     }
-    private InputStream addDoclist(InputStream imfx, DocList docList, InputStream sign) {
+    public InputStream addDoclist(InputStream imfx, DocList docList, InputStream sign) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 
@@ -31,10 +42,15 @@ public class Write {
     }
 
 
-    private InputStream addEnvelope(InputStream imfx, Envelope envelope) {
+    /**
+     * @param imfx
+     * @param envelope
+     * @return
+     */
+    public InputStream addEnvelope(InputStream imfx, Envelope envelope) {
         return addEnvelope(imfx, envelope);
     }
-    private InputStream addEnvelope(InputStream imfx, Envelope envelope, InputStream sign) {
+    public InputStream addEnvelope(InputStream imfx, Envelope envelope, InputStream sign) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 
