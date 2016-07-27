@@ -51,15 +51,15 @@ public class ReadTest1 {
 
         assertNotNull(Read.readEnvelope(imfx));
         imfx = new BufferedInputStream(new FileInputStream(res.getFile()));
-        assertNotNull(Read.readEnvelope(imfx).getMessageId());
+        assertEquals(Read.readEnvelope(imfx).getMessageId(), "1E1FED44-87FC-4463-900F-EE9A0F7A85AB");
         imfx = new BufferedInputStream(new FileInputStream(res.getFile()));
-        assertNotNull(Read.readEnvelope(imfx).getCreationDate());
+        assertEquals(Read.readEnvelope(imfx).getCreationDate(), "20160512T110404");
         imfx = new BufferedInputStream(new FileInputStream(res.getFile()));
-        assertNotNull(Read.readEnvelope(imfx).getDirection());
+        assertEquals(Read.readEnvelope(imfx).getDirection(), 1);
         imfx = new BufferedInputStream(new FileInputStream(res.getFile()));
-        assertNotNull(Read.readEnvelope(imfx).getSender());
+        assertEquals(Read.readEnvelope(imfx).getSender(), "tyatechka@Gmail.com");
         imfx = new BufferedInputStream(new FileInputStream(res.getFile()));
-        assertNotNull(Read.readEnvelope(imfx).getReceiver());
+        assertEquals(Read.readEnvelope(imfx).getReceiver(), "A141.TEST");
     }
 
     @Test
@@ -68,13 +68,15 @@ public class ReadTest1 {
 
         assertNotNull(Read.readDoclist(imfx));
         imfx = new BufferedInputStream(new FileInputStream(res.getFile()));
-        assertNotNull(Read.readDoclist(imfx).getDocument().get(0).getDocCode());
+        assertEquals(Read.readDoclist(imfx).getCreationDate(), "20160512T110404");
         imfx = new BufferedInputStream(new FileInputStream(res.getFile()));
-        assertNotNull(Read.readDoclist(imfx).getCreationDate());
+        assertEquals(Read.readDoclist(imfx).getSenderCode(), "0040075815");
         imfx = new BufferedInputStream(new FileInputStream(res.getFile()));
-        assertNotNull(Read.readDoclist(imfx).getSenderCode());
+        assertEquals(Read.readDoclist(imfx).getSenderName(), "ПАТ \"Українська залізниця\"");
         imfx = new BufferedInputStream(new FileInputStream(res.getFile()));
-        assertNotNull(Read.readDoclist(imfx).getSenderName());
+        assertEquals(Read.readDoclist(imfx).getDocument().get(0).getDocCode(), 71);
+        imfx = new BufferedInputStream(new FileInputStream(res.getFile()));
+        assertEquals(Read.readDoclist(imfx).getDocument().get(0).getDocNumber(), "807.40075815");
     }
 
 }

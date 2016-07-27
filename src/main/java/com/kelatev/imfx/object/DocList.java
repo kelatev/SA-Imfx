@@ -73,7 +73,7 @@ import java.util.List;
 public class DocList {
 
     @XmlElement(name = "SenderCode")
-    protected int senderCode;
+    protected String senderCode;
     @XmlElement(name = "SenderName", required = true)
     protected String senderName;
     @XmlElement(name = "CreationDate", required = true)
@@ -87,7 +87,7 @@ public class DocList {
      * Gets the value of the senderCode property.
      * 
      */
-    public int getSenderCode() {
+    public String getSenderCode() {
         return senderCode;
     }
 
@@ -95,7 +95,7 @@ public class DocList {
      * Sets the value of the senderCode property.
      * 
      */
-    public void setSenderCode(int value) {
+    public void setSenderCode(String value) {
         this.senderCode = value;
     }
 
@@ -252,7 +252,7 @@ public class DocList {
         @XmlElement(name = "DocCode")
         protected byte docCode;
         @XmlElement(name = "DocNumber")
-        protected short docNumber;
+        protected String docNumber;
         @XmlElement(name = "ModificationDate", required = true)
         protected String modificationDate;
         @XmlElement(name = "FileName", required = true)
@@ -300,7 +300,7 @@ public class DocList {
          * Gets the value of the docNumber property.
          * 
          */
-        public short getDocNumber() {
+        public String getDocNumber() {
             return docNumber;
         }
 
@@ -308,7 +308,7 @@ public class DocList {
          * Sets the value of the docNumber property.
          * 
          */
-        public void setDocNumber(short value) {
+        public void setDocNumber(String value) {
             this.docNumber = value;
         }
 

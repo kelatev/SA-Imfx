@@ -17,12 +17,22 @@ import java.util.zip.ZipInputStream;
 public class Read {
     //https://www.ibm.com/developerworks/ru/library/x-javaxmlvalidapi/
 
+    /**
+     * @param xmlFile
+     * @return
+     * @throws JAXBException
+     */
     private static Envelope parseEnvelope(InputStream xmlFile) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(Envelope.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
         return (Envelope) unmarshaller.unmarshal(xmlFile);
     }
 
+    /**
+     * @param xmlFile
+     * @return
+     * @throws JAXBException
+     */
     private static DocList parseDoclist(InputStream xmlFile) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(DocList.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -38,6 +48,13 @@ public class Read {
     public static InputStream readFile(BufferedInputStream fis, String fileName) {
         return readFile(fis, fileName, false);
     }
+
+    /**
+     * @param fis
+     * @param fileName
+     * @param ignoreRegist
+     * @return
+     */
     public static InputStream readFile(BufferedInputStream fis, String fileName, boolean ignoreRegist) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
@@ -55,7 +72,6 @@ public class Read {
                         baos.write(data, 0, count);
                     }
                 }
-                zis.closeEntry();
             }
             zis.close();
         } catch (Exception e) {
@@ -127,6 +143,14 @@ public class Read {
     public static DocList readDoclist(BufferedInputStream imfx) throws IOException, JAXBException {
         return readDoclist(imfx, Constant.DOCLIST_FILE_NAME);
     }
+
+    /**
+     * @param imfx
+     * @param filename
+     * @return
+     * @throws IOException
+     * @throws JAXBException
+     */
     public static DocList readDoclist(BufferedInputStream imfx, String filename) throws IOException, JAXBException {
         DocList doclist;
 
