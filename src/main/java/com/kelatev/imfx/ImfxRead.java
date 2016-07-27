@@ -45,21 +45,22 @@ public class ImfxRead {
      * @return
      * @throws IOException
      */
-    public static InputStream readFile(BufferedInputStream fis, String fileName) {
+    public static InputStream readFile(BufferedInputStream fis, String fileName) throws IOException {
         return readFile(fis, fileName, false);
     }
 
     /**
-     * @param fis
+     * @param imfx
      * @param fileName
      * @param ignoreRegist
      * @return
      */
-    public static InputStream readFile(BufferedInputStream fis, String fileName, boolean ignoreRegist) {
+    public static InputStream readFile(BufferedInputStream imfx, String fileName, boolean ignoreRegist) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
+        imfx.mark(0);
         try {
-            ZipInputStream zis = new ZipInputStream(fis);
+            ZipInputStream zis = new ZipInputStream(imfx);
             ZipEntry entry;
 
             while ((entry = zis.getNextEntry()) != null) {
@@ -73,18 +74,15 @@ public class ImfxRead {
                     }
                 }
             }
-            zis.close();
+            //zis.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        imfx.reset();
 
         if (baos.size() > 0) {
             InputStream is = new ByteArrayInputStream(baos.toByteArray());
-            try {
-                baos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            baos.close();
             return is;
         } else {
             return null;
