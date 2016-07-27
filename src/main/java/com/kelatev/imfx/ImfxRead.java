@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class Read {
+public class ImfxRead {
     //https://www.ibm.com/developerworks/ru/library/x-javaxmlvalidapi/
 
     /**
