@@ -1,7 +1,7 @@
 package com.kelatev.imfx;
 
-import com.kelatev.imfx.doclist.DocList;
-import com.kelatev.imfx.envelope.Envelope;
+import com.kelatev.imfx.object.DocList;
+import com.kelatev.imfx.object.Envelope;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

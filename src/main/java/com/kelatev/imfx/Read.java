@@ -1,7 +1,7 @@
 package com.kelatev.imfx;
 
-import com.kelatev.imfx.envelope.Envelope;
-import com.kelatev.imfx.doclist.DocList;
+import com.kelatev.imfx.object.Envelope;
+import com.kelatev.imfx.object.DocList;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -17,13 +17,13 @@ import java.util.zip.ZipInputStream;
 public class Read {
     //https://www.ibm.com/developerworks/ru/library/x-javaxmlvalidapi/
 
-    private Envelope parseEnvelope(InputStream xmlFile) throws JAXBException {
+    private static Envelope parseEnvelope(InputStream xmlFile) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(Envelope.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
         return (Envelope) unmarshaller.unmarshal(xmlFile);
     }
 
-    private DocList parseDoclist(InputStream xmlFile) throws JAXBException {
+    private static DocList parseDoclist(InputStream xmlFile) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(DocList.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
         return (DocList) unmarshaller.unmarshal(xmlFile);
@@ -32,11 +32,13 @@ public class Read {
     /**
      * @param fis
      * @param fileName
-     * @param ignoreRegist
      * @return
      * @throws IOException
      */
-    public static InputStream readFile(BufferedInputStream fis, String fileName, boolean ignoreRegist) throws IOException {
+    public static InputStream readFile(BufferedInputStream fis, String fileName) {
+        return readFile(fis, fileName, false);
+    }
+    public static InputStream readFile(BufferedInputStream fis, String fileName, boolean ignoreRegist) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         try {
@@ -60,11 +62,17 @@ public class Read {
             e.printStackTrace();
         }
 
-        InputStream is = new ByteArrayInputStream(baos.toByteArray());
-
-        //baos.flush();
-        baos.close();
-        return is;
+        if (baos.size() > 0) {
+            InputStream is = new ByteArrayInputStream(baos.toByteArray());
+            try {
+                baos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return is;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -98,7 +106,7 @@ public class Read {
      * @throws IOException
      * @throws JAXBException
      */
-    public Envelope readEnvelope(BufferedInputStream imfx) throws IOException, JAXBException {
+    public static Envelope readEnvelope(BufferedInputStream imfx) throws IOException, JAXBException {
         Envelope envelope;
 
         InputStream envelope_xml = readFile(imfx, Constant.ENVELOPE_FILE_NAME, true);
@@ -112,15 +120,17 @@ public class Read {
 
     /**
      * @param imfx
-     * @param filename
      * @return
      * @throws IOException
      * @throws JAXBException
      */
-    public DocList readDoclist(BufferedInputStream imfx, String filename) throws IOException, JAXBException {
+    public static DocList readDoclist(BufferedInputStream imfx) throws IOException, JAXBException {
+        return readDoclist(imfx, Constant.DOCLIST_FILE_NAME);
+    }
+    public static DocList readDoclist(BufferedInputStream imfx, String filename) throws IOException, JAXBException {
         DocList doclist;
 
-        if (filename.equals("")) {
+        if ("".equals(filename)) {
             filename = Constant.DOCLIST_FILE_NAME;
         }
 
