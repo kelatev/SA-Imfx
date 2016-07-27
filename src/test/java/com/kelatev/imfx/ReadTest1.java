@@ -72,7 +72,7 @@ public class ReadTest1 {
         imfx = new BufferedInputStream(new FileInputStream(res.getFile()));
         assertEquals(Read.readDoclist(imfx).getSenderCode(), "0040075815");
         imfx = new BufferedInputStream(new FileInputStream(res.getFile()));
-        assertEquals(Read.readDoclist(imfx).getSenderName(), "ПАТ \"Українська залізниця\"");
+        assertEquals(Read.readDoclist(imfx).getSenderName(), new String("ПАТ \"Українська залізниця\"".getBytes(), "UTF-8"));
         imfx = new BufferedInputStream(new FileInputStream(res.getFile()));
         assertEquals(Read.readDoclist(imfx).getDocument().get(0).getDocCode(), 71);
         imfx = new BufferedInputStream(new FileInputStream(res.getFile()));
