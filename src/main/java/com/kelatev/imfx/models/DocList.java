@@ -1,5 +1,7 @@
 
-package com.kelatev.imfx.object;
+package com.kelatev.imfx.models;
+
+import com.kelatev.imfx.helper.DateAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -7,6 +9,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Date;
 import java.util.List;
 
 
@@ -77,7 +81,8 @@ public class DocList {
     @XmlElement(name = "SenderName", required = true)
     protected String senderName;
     @XmlElement(name = "CreationDate", required = true)
-    protected String creationDate;
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    protected Date creationDate;
     @XmlElement(name = "Document", required = true)
     protected List<DocList.Document> document;
     @XmlAttribute(name = "version")
@@ -103,7 +108,7 @@ public class DocList {
      * Gets the value of the senderName property.
      * 
      * @return
-     *     possible object is
+     *     possible models is
      *     {@link String }
      *     
      */
@@ -115,7 +120,7 @@ public class DocList {
      * Sets the value of the senderName property.
      * 
      * @param value
-     *     allowed object is
+     *     allowed models is
      *     {@link String }
      *     
      */
@@ -127,11 +132,11 @@ public class DocList {
      * Gets the value of the creationDate property.
      * 
      * @return
-     *     possible object is
+     *     possible models is
      *     {@link String }
      *     
      */
-    public String getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
@@ -139,11 +144,11 @@ public class DocList {
      * Sets the value of the creationDate property.
      * 
      * @param value
-     *     allowed object is
+     *     allowed models is
      *     {@link String }
      *     
      */
-    public void setCreationDate(String value) {
+    public void setCreationDate(Date value) {
         this.creationDate = value;
     }
 
@@ -151,7 +156,7 @@ public class DocList {
      * Gets the value of the document property.
      * 
      * @return
-     *     possible object is
+     *     possible models is
      *     {@link DocList.Document }
      *     
      */
@@ -163,7 +168,7 @@ public class DocList {
      * Sets the value of the document property.
      * 
      * @param value
-     *     allowed object is
+     *     allowed models is
      *     {@link DocList.Document }
      *     
      */
@@ -175,7 +180,7 @@ public class DocList {
      * Gets the value of the version property.
      * 
      * @return
-     *     possible object is
+     *     possible models is
      *     {@link Byte }
      *     
      */
@@ -187,7 +192,7 @@ public class DocList {
      * Sets the value of the version property.
      * 
      * @param value
-     *     allowed object is
+     *     allowed models is
      *     {@link Byte }
      *     
      */
@@ -207,6 +212,7 @@ public class DocList {
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
      *         &lt;element name="ID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+     *         &lt;element name="ParentID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
      *         &lt;element name="DocCode" type="{http://www.w3.org/2001/XMLSchema}byte"/>
      *         &lt;element name="DocNumber" type="{http://www.w3.org/2001/XMLSchema}short"/>
      *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -237,6 +243,7 @@ public class DocList {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "id",
+        "parentId",
         "docCode",
         "docNumber",
         "modificationDate",
@@ -247,14 +254,17 @@ public class DocList {
     })
     public static class Document {
 
-        @XmlElement(name = "ID")
-        protected byte id;
-        @XmlElement(name = "DocCode")
-        protected byte docCode;
-        @XmlElement(name = "DocNumber")
+        @XmlElement(name = "ID", required = true)
+        protected int id;
+        @XmlElement(name = "ParentID")
+        protected int parentId;
+        @XmlElement(name = "DocCode", required = true)
+        protected int docCode;
+        @XmlElement(name = "DocNumber", required = true)
         protected String docNumber;
         @XmlElement(name = "ModificationDate", required = true)
-        protected String modificationDate;
+        @XmlJavaTypeAdapter(DateAdapter.class)
+        protected Date modificationDate;
         @XmlElement(name = "FileName", required = true)
         protected String fileName;
         @XmlElement(name = "Comment", required = true)
@@ -268,7 +278,7 @@ public class DocList {
          * Gets the value of the id property.
          * 
          */
-        public byte getID() {
+        public int getID() {
             return id;
         }
 
@@ -276,15 +286,31 @@ public class DocList {
          * Sets the value of the id property.
          * 
          */
-        public void setID(byte value) {
+        public void setID(int value) {
             this.id = value;
+        }
+
+        /**
+         * Gets the value of the parentId property.
+         *
+         */
+        public int getParentId() {
+            return parentId;
+        }
+
+        /**
+         * Sets the value of the parentId property.
+         *
+         */
+        public void setParentId(int parentId) {
+            this.parentId = parentId;
         }
 
         /**
          * Gets the value of the docCode property.
          * 
          */
-        public byte getDocCode() {
+        public int getDocCode() {
             return docCode;
         }
 
@@ -292,7 +318,7 @@ public class DocList {
          * Sets the value of the docCode property.
          * 
          */
-        public void setDocCode(byte value) {
+        public void setDocCode(int value) {
             this.docCode = value;
         }
 
@@ -316,11 +342,11 @@ public class DocList {
          * Gets the value of the modificationDate property.
          * 
          * @return
-         *     possible object is
+         *     possible models is
          *     {@link String }
          *     
          */
-        public String getModificationDate() {
+        public Date getModificationDate() {
             return modificationDate;
         }
 
@@ -328,11 +354,11 @@ public class DocList {
          * Sets the value of the modificationDate property.
          * 
          * @param value
-         *     allowed object is
+         *     allowed models is
          *     {@link String }
          *     
          */
-        public void setModificationDate(String value) {
+        public void setModificationDate(Date value) {
             this.modificationDate = value;
         }
 
@@ -340,7 +366,7 @@ public class DocList {
          * Gets the value of the fileName property.
          * 
          * @return
-         *     possible object is
+         *     possible models is
          *     {@link String }
          *     
          */
@@ -352,7 +378,7 @@ public class DocList {
          * Sets the value of the fileName property.
          * 
          * @param value
-         *     allowed object is
+         *     allowed models is
          *     {@link String }
          *     
          */
@@ -364,7 +390,7 @@ public class DocList {
          * Gets the value of the comment property.
          * 
          * @return
-         *     possible object is
+         *     possible models is
          *     {@link String }
          *     
          */
@@ -376,7 +402,7 @@ public class DocList {
          * Sets the value of the comment property.
          * 
          * @param value
-         *     allowed object is
+         *     allowed models is
          *     {@link String }
          *     
          */
@@ -404,7 +430,7 @@ public class DocList {
          * Gets the value of the protection property.
          * 
          * @return
-         *     possible object is
+         *     possible models is
          *     {@link DocList.Document.Protection }
          *     
          */
@@ -416,7 +442,7 @@ public class DocList {
          * Sets the value of the protection property.
          * 
          * @param value
-         *     allowed object is
+         *     allowed models is
          *     {@link DocList.Document.Protection }
          *     
          */
@@ -497,7 +523,7 @@ public class DocList {
              * Gets the value of the signFileName property.
              * 
              * @return
-             *     possible object is
+             *     possible models is
              *     {@link String }
              *     
              */
@@ -509,7 +535,7 @@ public class DocList {
              * Sets the value of the signFileName property.
              * 
              * @param value
-             *     allowed object is
+             *     allowed models is
              *     {@link String }
              *     
              */

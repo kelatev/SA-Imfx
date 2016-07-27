@@ -1,5 +1,7 @@
 
-package com.kelatev.imfx.object;
+package com.kelatev.imfx.models;
+
+import com.kelatev.imfx.helper.DateAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -7,6 +9,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Date;
 
 
 /**
@@ -84,23 +88,24 @@ public class Envelope {
     @XmlElement(name = "Receiver", required = true)
     protected String receiver;
     @XmlElement(name = "CreationDate", required = true)
-    protected String creationDate;
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    protected Date creationDate;
     @XmlElement(name = "Direction")
     protected byte direction;
     @XmlElement(name = "MsgType")
-    protected byte msgType;
+    protected int msgType;
     @XmlElement(name = "Comment", required = true)
     protected String comment;
     @XmlElement(name = "DocListFile", required = true)
     protected Envelope.DocListFile docListFile;
     @XmlAttribute(name = "version")
-    protected Byte version;
+    protected Short version;
 
     /**
      * Gets the value of the messageId property.
      * 
      * @return
-     *     possible object is
+     *     possible models is
      *     {@link String }
      *     
      */
@@ -112,7 +117,7 @@ public class Envelope {
      * Sets the value of the messageId property.
      * 
      * @param value
-     *     allowed object is
+     *     allowed models is
      *     {@link String }
      *     
      */
@@ -124,7 +129,7 @@ public class Envelope {
      * Gets the value of the replyId property.
      * 
      * @return
-     *     possible object is
+     *     possible models is
      *     {@link String }
      *     
      */
@@ -136,7 +141,7 @@ public class Envelope {
      * Sets the value of the replyId property.
      * 
      * @param value
-     *     allowed object is
+     *     allowed models is
      *     {@link String }
      *     
      */
@@ -148,7 +153,7 @@ public class Envelope {
      * Gets the value of the sender property.
      * 
      * @return
-     *     possible object is
+     *     possible models is
      *     {@link String }
      *     
      */
@@ -160,7 +165,7 @@ public class Envelope {
      * Sets the value of the sender property.
      * 
      * @param value
-     *     allowed object is
+     *     allowed models is
      *     {@link String }
      *     
      */
@@ -172,7 +177,7 @@ public class Envelope {
      * Gets the value of the receiver property.
      * 
      * @return
-     *     possible object is
+     *     possible models is
      *     {@link String }
      *     
      */
@@ -184,7 +189,7 @@ public class Envelope {
      * Sets the value of the receiver property.
      * 
      * @param value
-     *     allowed object is
+     *     allowed models is
      *     {@link String }
      *     
      */
@@ -196,11 +201,11 @@ public class Envelope {
      * Gets the value of the creationDate property.
      * 
      * @return
-     *     possible object is
+     *     possible models is
      *     {@link String }
      *     
      */
-    public String getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
@@ -208,11 +213,11 @@ public class Envelope {
      * Sets the value of the creationDate property.
      * 
      * @param value
-     *     allowed object is
+     *     allowed models is
      *     {@link String }
      *     
      */
-    public void setCreationDate(String value) {
+    public void setCreationDate(Date value) {
         this.creationDate = value;
     }
 
@@ -236,7 +241,7 @@ public class Envelope {
      * Gets the value of the msgType property.
      * 
      */
-    public byte getMsgType() {
+    public int getMsgType() {
         return msgType;
     }
 
@@ -244,7 +249,7 @@ public class Envelope {
      * Sets the value of the msgType property.
      * 
      */
-    public void setMsgType(byte value) {
+    public void setMsgType(int value) {
         this.msgType = value;
     }
 
@@ -252,7 +257,7 @@ public class Envelope {
      * Gets the value of the comment property.
      * 
      * @return
-     *     possible object is
+     *     possible models is
      *     {@link String }
      *     
      */
@@ -264,7 +269,7 @@ public class Envelope {
      * Sets the value of the comment property.
      * 
      * @param value
-     *     allowed object is
+     *     allowed models is
      *     {@link String }
      *     
      */
@@ -276,7 +281,7 @@ public class Envelope {
      * Gets the value of the docListFile property.
      * 
      * @return
-     *     possible object is
+     *     possible models is
      *     {@link Envelope.DocListFile }
      *     
      */
@@ -288,7 +293,7 @@ public class Envelope {
      * Sets the value of the docListFile property.
      * 
      * @param value
-     *     allowed object is
+     *     allowed models is
      *     {@link Envelope.DocListFile }
      *     
      */
@@ -300,11 +305,11 @@ public class Envelope {
      * Gets the value of the version property.
      * 
      * @return
-     *     possible object is
-     *     {@link Byte }
+     *     possible models is
+     *     {@link Short }
      *     
      */
-    public Byte getVersion() {
+    public Short getVersion() {
         return version;
     }
 
@@ -312,11 +317,11 @@ public class Envelope {
      * Sets the value of the version property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link Byte }
+     *     allowed models is
+     *     {@link Short }
      *     
      */
-    public void setVersion(Byte value) {
+    public void setVersion(Short value) {
         this.version = value;
     }
 
@@ -369,7 +374,7 @@ public class Envelope {
          * Gets the value of the fileName property.
          * 
          * @return
-         *     possible object is
+         *     possible models is
          *     {@link String }
          *     
          */
@@ -381,7 +386,7 @@ public class Envelope {
          * Sets the value of the fileName property.
          * 
          * @param value
-         *     allowed object is
+         *     allowed models is
          *     {@link String }
          *     
          */
@@ -393,7 +398,7 @@ public class Envelope {
          * Gets the value of the protection property.
          * 
          * @return
-         *     possible object is
+         *     possible models is
          *     {@link Envelope.DocListFile.Protection }
          *     
          */
@@ -405,7 +410,7 @@ public class Envelope {
          * Sets the value of the protection property.
          * 
          * @param value
-         *     allowed object is
+         *     allowed models is
          *     {@link Envelope.DocListFile.Protection }
          *     
          */
@@ -444,7 +449,7 @@ public class Envelope {
         public static class Protection {
 
             @XmlElement(name = "MethodID")
-            protected byte methodID;
+            protected int methodID;
             @XmlElement(name = "SelfSigned")
             protected byte selfSigned;
             @XmlElement(name = "SignFileName", required = true)
@@ -454,7 +459,7 @@ public class Envelope {
              * Gets the value of the methodID property.
              * 
              */
-            public byte getMethodID() {
+            public int getMethodID() {
                 return methodID;
             }
 
@@ -462,7 +467,7 @@ public class Envelope {
              * Sets the value of the methodID property.
              * 
              */
-            public void setMethodID(byte value) {
+            public void setMethodID(int value) {
                 this.methodID = value;
             }
 
@@ -486,7 +491,7 @@ public class Envelope {
              * Gets the value of the signFileName property.
              * 
              * @return
-             *     possible object is
+             *     possible models is
              *     {@link String }
              *     
              */
@@ -498,7 +503,7 @@ public class Envelope {
              * Sets the value of the signFileName property.
              * 
              * @param value
-             *     allowed object is
+             *     allowed models is
              *     {@link String }
              *     
              */

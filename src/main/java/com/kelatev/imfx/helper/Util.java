@@ -1,33 +1,12 @@
-package com.kelatev.imfx;
+package com.kelatev.imfx.helper;
 
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.zip.CRC32;
-import java.io.InputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.zip.CRC32;
 
 public class Util {
-
-    public static String date2String(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat(Constant.dateFormat);
-        return sdf.format(date);
-    }
-
-    public static Date string2Date(String string) {
-        SimpleDateFormat sdf = new SimpleDateFormat(Constant.dateFormat);
-        try
-        {
-            Date date = sdf.parse(string);
-            return date;
-        }
-        catch (ParseException ex)
-        {
-            return null;
-        }
-    }
 
     public long getCRC32(InputStream inStream) {
         long r = 0;

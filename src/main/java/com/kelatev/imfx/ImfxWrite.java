@@ -1,7 +1,8 @@
 package com.kelatev.imfx;
 
-import com.kelatev.imfx.object.DocList;
-import com.kelatev.imfx.object.Envelope;
+import com.kelatev.imfx.helper.Constant;
+import com.kelatev.imfx.models.DocList;
+import com.kelatev.imfx.models.Envelope;
 
 import java.io.*;
 import java.util.zip.ZipEntry;

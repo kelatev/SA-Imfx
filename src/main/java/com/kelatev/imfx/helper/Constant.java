@@ -1,4 +1,4 @@
-package com.kelatev.imfx;
+package com.kelatev.imfx.helper;
 
 public class Constant {
 
