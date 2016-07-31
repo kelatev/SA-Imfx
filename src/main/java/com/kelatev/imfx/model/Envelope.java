@@ -1,7 +1,7 @@
 
-package com.kelatev.imfx.models;
+package com.kelatev.imfx.model;
 
-import com.kelatev.imfx.helper.DateAdapter;
+import com.kelatev.imfx.util.DateAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -24,21 +23,20 @@ import java.util.List;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="SenderCode" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="SenderName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="MessageId" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="ReplyId" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="Sender" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="Receiver" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="CreationDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="Document">
+ *         &lt;element name="Direction" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+ *         &lt;element name="MsgType" type="{http://www.w3.org/2001/XMLSchema}byte"/>
+ *         &lt;element name="Comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="DocListFile">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="ID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                   &lt;element name="DocCode" type="{http://www.w3.org/2001/XMLSchema}byte"/>
- *                   &lt;element name="DocNumber" type="{http://www.w3.org/2001/XMLSchema}short"/>
- *                   &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="FileName" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                   &lt;element name="Comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                   &lt;element name="CRC" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *                   &lt;element name="Protection">
  *                     &lt;complexType>
  *                       &lt;complexContent>
@@ -68,71 +66,142 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "senderCode",
-    "senderName",
+    "messageId",
+    "replyId",
+    "sender",
+    "receiver",
     "creationDate",
-    "document"
+    "direction",
+    "msgType",
+    "comment",
+    "docListFile"
 })
-@XmlRootElement(name = "DocList")
-public class DocList {
+@XmlRootElement(name = "Envelope")
+public class Envelope {
 
-    @XmlElement(name = "SenderCode")
-    protected String senderCode;
-    @XmlElement(name = "SenderName", required = true)
-    protected String senderName;
+    @XmlElement(name = "MessageId", required = true)
+    protected String messageId;
+    @XmlElement(name = "ReplyId", required = true)
+    protected String replyId;
+    @XmlElement(name = "Sender", required = true)
+    protected String sender;
+    @XmlElement(name = "Receiver", required = true)
+    protected String receiver;
     @XmlElement(name = "CreationDate", required = true)
     @XmlJavaTypeAdapter(DateAdapter.class)
     protected Date creationDate;
-    @XmlElement(name = "Document", required = true)
-    protected List<DocList.Document> document;
+    @XmlElement(name = "Direction")
+    protected byte direction;
+    @XmlElement(name = "MsgType")
+    protected int msgType;
+    @XmlElement(name = "Comment", required = true)
+    protected String comment;
+    @XmlElement(name = "DocListFile", required = true)
+    protected Envelope.DocListFile docListFile;
     @XmlAttribute(name = "version")
-    protected Byte version;
+    protected Short version;
 
     /**
-     * Gets the value of the senderCode property.
-     * 
-     */
-    public String getSenderCode() {
-        return senderCode;
-    }
-
-    /**
-     * Sets the value of the senderCode property.
-     * 
-     */
-    public void setSenderCode(String value) {
-        this.senderCode = value;
-    }
-
-    /**
-     * Gets the value of the senderName property.
+     * Gets the value of the messageId property.
      * 
      * @return
-     *     possible models is
+     *     possible model is
      *     {@link String }
      *     
      */
-    public String getSenderName() {
-        return senderName;
+    public String getMessageId() {
+        return messageId;
     }
 
     /**
-     * Sets the value of the senderName property.
+     * Sets the value of the messageId property.
      * 
      * @param value
-     *     allowed models is
+     *     allowed model is
      *     {@link String }
      *     
      */
-    public void setSenderName(String value) {
-        this.senderName = value;
+    public void setMessageId(String value) {
+        this.messageId = value;
+    }
+
+    /**
+     * Gets the value of the replyId property.
+     * 
+     * @return
+     *     possible model is
+     *     {@link String }
+     *     
+     */
+    public String getReplyId() {
+        return replyId;
+    }
+
+    /**
+     * Sets the value of the replyId property.
+     * 
+     * @param value
+     *     allowed model is
+     *     {@link String }
+     *     
+     */
+    public void setReplyId(String value) {
+        this.replyId = value;
+    }
+
+    /**
+     * Gets the value of the sender property.
+     * 
+     * @return
+     *     possible model is
+     *     {@link String }
+     *     
+     */
+    public String getSender() {
+        return sender;
+    }
+
+    /**
+     * Sets the value of the sender property.
+     * 
+     * @param value
+     *     allowed model is
+     *     {@link String }
+     *     
+     */
+    public void setSender(String value) {
+        this.sender = value;
+    }
+
+    /**
+     * Gets the value of the receiver property.
+     * 
+     * @return
+     *     possible model is
+     *     {@link String }
+     *     
+     */
+    public String getReceiver() {
+        return receiver;
+    }
+
+    /**
+     * Sets the value of the receiver property.
+     * 
+     * @param value
+     *     allowed model is
+     *     {@link String }
+     *     
+     */
+    public void setReceiver(String value) {
+        this.receiver = value;
     }
 
     /**
      * Gets the value of the creationDate property.
      * 
      * @return
-     *     possible models is
+     *     possible model is
      *     {@link String }
      *     
      */
@@ -144,7 +213,7 @@ public class DocList {
      * Sets the value of the creationDate property.
      * 
      * @param value
-     *     allowed models is
+     *     allowed model is
      *     {@link String }
      *     
      */
@@ -153,38 +222,94 @@ public class DocList {
     }
 
     /**
-     * Gets the value of the document property.
+     * Gets the value of the direction property.
      * 
-     * @return
-     *     possible models is
-     *     {@link DocList.Document }
-     *     
      */
-    public List<DocList.Document> getDocument() {
-        return document;
+    public byte getDirection() {
+        return direction;
     }
 
     /**
-     * Sets the value of the document property.
+     * Sets the value of the direction property.
      * 
-     * @param value
-     *     allowed models is
-     *     {@link DocList.Document }
+     */
+    public void setDirection(byte value) {
+        this.direction = value;
+    }
+
+    /**
+     * Gets the value of the msgType property.
+     * 
+     */
+    public int getMsgType() {
+        return msgType;
+    }
+
+    /**
+     * Sets the value of the msgType property.
+     * 
+     */
+    public void setMsgType(int value) {
+        this.msgType = value;
+    }
+
+    /**
+     * Gets the value of the comment property.
+     * 
+     * @return
+     *     possible model is
+     *     {@link String }
      *     
      */
-    public void setDocument(List<DocList.Document> value) {
-        this.document = value;
+    public String getComment() {
+        return comment;
+    }
+
+    /**
+     * Sets the value of the comment property.
+     * 
+     * @param value
+     *     allowed model is
+     *     {@link String }
+     *     
+     */
+    public void setComment(String value) {
+        this.comment = value;
+    }
+
+    /**
+     * Gets the value of the docListFile property.
+     * 
+     * @return
+     *     possible model is
+     *     {@link Envelope.DocListFile }
+     *     
+     */
+    public Envelope.DocListFile getDocListFile() {
+        return docListFile;
+    }
+
+    /**
+     * Sets the value of the docListFile property.
+     * 
+     * @param value
+     *     allowed model is
+     *     {@link Envelope.DocListFile }
+     *     
+     */
+    public void setDocListFile(Envelope.DocListFile value) {
+        this.docListFile = value;
     }
 
     /**
      * Gets the value of the version property.
      * 
      * @return
-     *     possible models is
-     *     {@link Byte }
+     *     possible model is
+     *     {@link Short }
      *     
      */
-    public Byte getVersion() {
+    public Short getVersion() {
         return version;
     }
 
@@ -192,11 +317,11 @@ public class DocList {
      * Sets the value of the version property.
      * 
      * @param value
-     *     allowed models is
-     *     {@link Byte }
+     *     allowed model is
+     *     {@link Short }
      *     
      */
-    public void setVersion(Byte value) {
+    public void setVersion(Short value) {
         this.version = value;
     }
 
@@ -211,14 +336,7 @@ public class DocList {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="ID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *         &lt;element name="ParentID" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *         &lt;element name="DocCode" type="{http://www.w3.org/2001/XMLSchema}byte"/>
-     *         &lt;element name="DocNumber" type="{http://www.w3.org/2001/XMLSchema}short"/>
-     *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="FileName" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="Comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="CRC" type="{http://www.w3.org/2001/XMLSchema}int"/>
      *         &lt;element name="Protection">
      *           &lt;complexType>
      *             &lt;complexContent>
@@ -242,131 +360,21 @@ public class DocList {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "id",
-        "parentId",
-        "docCode",
-        "docNumber",
-        "modificationDate",
         "fileName",
-        "comment",
-        "crc",
         "protection"
     })
-    public static class Document {
+    public static class DocListFile {
 
-        @XmlElement(name = "ID", required = true)
-        protected int id;
-        @XmlElement(name = "ParentID")
-        protected int parentId;
-        @XmlElement(name = "DocCode", required = true)
-        protected int docCode;
-        @XmlElement(name = "DocNumber", required = true)
-        protected String docNumber;
-        @XmlElement(name = "ModificationDate", required = true)
-        @XmlJavaTypeAdapter(DateAdapter.class)
-        protected Date modificationDate;
         @XmlElement(name = "FileName", required = true)
         protected String fileName;
-        @XmlElement(name = "Comment", required = true)
-        protected String comment;
-        @XmlElement(name = "CRC")
-        protected int crc;
         @XmlElement(name = "Protection", required = true)
-        protected DocList.Document.Protection protection;
-
-        /**
-         * Gets the value of the id property.
-         * 
-         */
-        public int getID() {
-            return id;
-        }
-
-        /**
-         * Sets the value of the id property.
-         * 
-         */
-        public void setID(int value) {
-            this.id = value;
-        }
-
-        /**
-         * Gets the value of the parentId property.
-         *
-         */
-        public int getParentId() {
-            return parentId;
-        }
-
-        /**
-         * Sets the value of the parentId property.
-         *
-         */
-        public void setParentId(int parentId) {
-            this.parentId = parentId;
-        }
-
-        /**
-         * Gets the value of the docCode property.
-         * 
-         */
-        public int getDocCode() {
-            return docCode;
-        }
-
-        /**
-         * Sets the value of the docCode property.
-         * 
-         */
-        public void setDocCode(int value) {
-            this.docCode = value;
-        }
-
-        /**
-         * Gets the value of the docNumber property.
-         * 
-         */
-        public String getDocNumber() {
-            return docNumber;
-        }
-
-        /**
-         * Sets the value of the docNumber property.
-         * 
-         */
-        public void setDocNumber(String value) {
-            this.docNumber = value;
-        }
-
-        /**
-         * Gets the value of the modificationDate property.
-         * 
-         * @return
-         *     possible models is
-         *     {@link String }
-         *     
-         */
-        public Date getModificationDate() {
-            return modificationDate;
-        }
-
-        /**
-         * Sets the value of the modificationDate property.
-         * 
-         * @param value
-         *     allowed models is
-         *     {@link String }
-         *     
-         */
-        public void setModificationDate(Date value) {
-            this.modificationDate = value;
-        }
+        protected Envelope.DocListFile.Protection protection;
 
         /**
          * Gets the value of the fileName property.
          * 
          * @return
-         *     possible models is
+         *     possible model is
          *     {@link String }
          *     
          */
@@ -378,7 +386,7 @@ public class DocList {
          * Sets the value of the fileName property.
          * 
          * @param value
-         *     allowed models is
+         *     allowed model is
          *     {@link String }
          *     
          */
@@ -387,54 +395,14 @@ public class DocList {
         }
 
         /**
-         * Gets the value of the comment property.
-         * 
-         * @return
-         *     possible models is
-         *     {@link String }
-         *     
-         */
-        public String getComment() {
-            return comment;
-        }
-
-        /**
-         * Sets the value of the comment property.
-         * 
-         * @param value
-         *     allowed models is
-         *     {@link String }
-         *     
-         */
-        public void setComment(String value) {
-            this.comment = value;
-        }
-
-        /**
-         * Gets the value of the crc property.
-         * 
-         */
-        public int getCRC() {
-            return crc;
-        }
-
-        /**
-         * Sets the value of the crc property.
-         * 
-         */
-        public void setCRC(int value) {
-            this.crc = value;
-        }
-
-        /**
          * Gets the value of the protection property.
          * 
          * @return
-         *     possible models is
-         *     {@link DocList.Document.Protection }
+         *     possible model is
+         *     {@link Envelope.DocListFile.Protection }
          *     
          */
-        public DocList.Document.Protection getProtection() {
+        public Envelope.DocListFile.Protection getProtection() {
             return protection;
         }
 
@@ -442,11 +410,11 @@ public class DocList {
          * Sets the value of the protection property.
          * 
          * @param value
-         *     allowed models is
-         *     {@link DocList.Document.Protection }
+         *     allowed model is
+         *     {@link Envelope.DocListFile.Protection }
          *     
          */
-        public void setProtection(DocList.Document.Protection value) {
+        public void setProtection(Envelope.DocListFile.Protection value) {
             this.protection = value;
         }
 
@@ -481,7 +449,7 @@ public class DocList {
         public static class Protection {
 
             @XmlElement(name = "MethodID")
-            protected byte methodID;
+            protected int methodID;
             @XmlElement(name = "SelfSigned")
             protected byte selfSigned;
             @XmlElement(name = "SignFileName", required = true)
@@ -491,7 +459,7 @@ public class DocList {
              * Gets the value of the methodID property.
              * 
              */
-            public byte getMethodID() {
+            public int getMethodID() {
                 return methodID;
             }
 
@@ -499,7 +467,7 @@ public class DocList {
              * Sets the value of the methodID property.
              * 
              */
-            public void setMethodID(byte value) {
+            public void setMethodID(int value) {
                 this.methodID = value;
             }
 
@@ -523,7 +491,7 @@ public class DocList {
              * Gets the value of the signFileName property.
              * 
              * @return
-             *     possible models is
+             *     possible model is
              *     {@link String }
              *     
              */
@@ -535,7 +503,7 @@ public class DocList {
              * Sets the value of the signFileName property.
              * 
              * @param value
-             *     allowed models is
+             *     allowed model is
              *     {@link String }
              *     
              */

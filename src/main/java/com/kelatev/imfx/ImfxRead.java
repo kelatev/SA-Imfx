@@ -1,8 +1,8 @@
 package com.kelatev.imfx;
 
-import com.kelatev.imfx.helper.Constant;
-import com.kelatev.imfx.models.Envelope;
-import com.kelatev.imfx.models.DocList;
+import com.kelatev.imfx.util.Constant;
+import com.kelatev.imfx.model.Envelope;
+import com.kelatev.imfx.model.DocList;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

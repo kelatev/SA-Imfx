@@ -1,7 +1,6 @@
 package com.kelatev.imfx;
 
-import com.kelatev.imfx.helper.Constant;
-import com.kelatev.imfx.helper.DateAdapter;
+import com.kelatev.imfx.util.Constant;
 import org.junit.*;
 
 import java.io.*;

@@ -1,4 +1,4 @@
-package com.kelatev.imfx.helper;
+package com.kelatev.imfx.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.CRC32;
 
-public class Util {
+public class Crc {
 
     public long getCRC32(InputStream inStream) {
         long r = 0;
