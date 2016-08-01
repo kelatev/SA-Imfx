@@ -17,27 +17,43 @@ import java.io.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * The type Imfx write.
+ */
 public class ImfxWrite {
 
+    /**
+     * Zip zip output stream.
+     *
+     * @param imfx the imfx
+     * @return the zip output stream
+     */
     public static ZipOutputStream zip(FileOutputStream imfx) {
         return new ZipOutputStream(imfx);
     }
+
     /**
-     * @param imfx
-     * @param fileStream
-     * @param fileName
+     * Write file.
+     *
+     * @param imfx       the imfx
+     * @param fileStream the file stream
+     * @param fileName   the file name
      * @return
+     * @throws IOException the io exception
      */
     public void writeFile(ZipOutputStream imfx, OutputStream fileStream, String fileName) throws IOException {
         writeFile(imfx, fileStream, fileName, null);
     }
 
     /**
-     * @param imfx
-     * @param fileStream
-     * @param fileName
-     * @param sign
+     * Write file.
+     *
+     * @param imfx       the imfx
+     * @param fileStream the file stream
+     * @param fileName   the file name
+     * @param sign       the sign
      * @return
+     * @throws IOException the io exception
      */
     public void writeFile(ZipOutputStream imfx, OutputStream fileStream, String fileName, InputStream sign) throws IOException {
         ZipEntry ze = new ZipEntry(fileName);
@@ -51,6 +67,12 @@ public class ImfxWrite {
         imfx.closeEntry();
     }
 
+    /**
+     * Finish.
+     *
+     * @param imfx the imfx
+     * @throws IOException the io exception
+     */
     public void finish(ZipOutputStream imfx) throws IOException {
         //zout.finish();
         imfx.close();
@@ -58,8 +80,10 @@ public class ImfxWrite {
 
 
     /**
-     * @param imfx
-     * @param docList
+     * Add doclist.
+     *
+     * @param imfx    the imfx
+     * @param docList the doc list
      * @return
      */
     public void addDoclist(ZipOutputStream imfx, DocList docList) {
@@ -67,10 +91,15 @@ public class ImfxWrite {
     }
 
     /**
-     * @param imfx
-     * @param docList
-     * @param sign
+     * Add doclist.
+     *
+     * @param imfx    the imfx
+     * @param docList the doc list
+     * @param sign    the sign
      * @return
+     * @throws IOException   the io exception
+     * @throws SAXException  the sax exception
+     * @throws JAXBException the jaxb exception
      */
     public void addDoclist(ZipOutputStream imfx, DocList docList, InputStream sign) throws IOException, SAXException, JAXBException {
         OutputStream fileStream = null;
@@ -88,8 +117,10 @@ public class ImfxWrite {
 
 
     /**
-     * @param imfx
-     * @param envelope
+     * Add envelope.
+     *
+     * @param imfx     the imfx
+     * @param envelope the envelope
      * @return
      */
     public void addEnvelope(ZipOutputStream imfx, Envelope envelope) {
@@ -97,10 +128,15 @@ public class ImfxWrite {
     }
 
     /**
-     * @param imfx
-     * @param envelope
-     * @param sign
+     * Add envelope.
+     *
+     * @param imfx     the imfx
+     * @param envelope the envelope
+     * @param sign     the sign
      * @return
+     * @throws IOException   the io exception
+     * @throws SAXException  the sax exception
+     * @throws JAXBException the jaxb exception
      */
     public void addEnvelope(ZipOutputStream imfx, Envelope envelope, InputStream sign) throws IOException, SAXException, JAXBException {
         OutputStream fileStream = null;

@@ -15,25 +15,19 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+/**
+ * The type Imfx read.
+ */
 public class ImfxRead {
     //https://www.ibm.com/developerworks/ru/library/x-javaxmlvalidapi/
 
-    /**
-     * @param xmlFile
-     * @return
-     * @throws JAXBException
-     */
+
     private static Envelope parseEnvelope(InputStream xmlFile) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(Envelope.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
         return (Envelope) unmarshaller.unmarshal(xmlFile);
     }
 
-    /**
-     * @param xmlFile
-     * @return
-     * @throws JAXBException
-     */
     private static DocList parseDoclist(InputStream xmlFile) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(DocList.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -41,20 +35,25 @@ public class ImfxRead {
     }
 
     /**
-     * @param fis
-     * @param fileName
-     * @return
-     * @throws IOException
+     * Read file input stream.
+     *
+     * @param fis      the fis
+     * @param fileName the file name
+     * @return input stream
+     * @throws IOException the io exception
      */
     public static InputStream readFile(BufferedInputStream fis, String fileName) throws IOException {
         return readFile(fis, fileName, false);
     }
 
     /**
-     * @param imfx
-     * @param fileName
-     * @param ignoreRegist
-     * @return
+     * Read file input stream.
+     *
+     * @param imfx         the imfx
+     * @param fileName     the file name
+     * @param ignoreRegist the ignore regist
+     * @return input stream
+     * @throws IOException the io exception
      */
     public static InputStream readFile(BufferedInputStream imfx, String fileName, boolean ignoreRegist) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -91,10 +90,12 @@ public class ImfxRead {
     }
 
     /**
-     * @param fis
-     * @param fileName
-     * @param ignoreRegist
-     * @return
+     * Has file boolean.
+     *
+     * @param fis          the fis
+     * @param fileName     the file name
+     * @param ignoreRegist the ignore regist
+     * @return boolean
      */
     public static boolean hasFile(BufferedInputStream fis, String fileName, boolean ignoreRegist) {
         boolean result = false;
@@ -116,10 +117,12 @@ public class ImfxRead {
     }
 
     /**
-     * @param imfx
-     * @return
-     * @throws IOException
-     * @throws JAXBException
+     * Read envelope envelope.
+     *
+     * @param imfx the imfx
+     * @return envelope
+     * @throws IOException   the io exception
+     * @throws JAXBException the jaxb exception
      */
     public static Envelope readEnvelope(BufferedInputStream imfx) throws IOException, JAXBException {
         Envelope envelope;
@@ -134,21 +137,25 @@ public class ImfxRead {
     }
 
     /**
-     * @param imfx
-     * @return
-     * @throws IOException
-     * @throws JAXBException
+     * Read doclist doc list.
+     *
+     * @param imfx the imfx
+     * @return doc list
+     * @throws IOException   the io exception
+     * @throws JAXBException the jaxb exception
      */
     public static DocList readDoclist(BufferedInputStream imfx) throws IOException, JAXBException {
         return readDoclist(imfx, Constant.DOCLIST_FILE_NAME);
     }
 
     /**
-     * @param imfx
-     * @param filename
-     * @return
-     * @throws IOException
-     * @throws JAXBException
+     * Read doclist doc list.
+     *
+     * @param imfx     the imfx
+     * @param filename the filename
+     * @return doc list
+     * @throws IOException   the io exception
+     * @throws JAXBException the jaxb exception
      */
     public static DocList readDoclist(BufferedInputStream imfx, String filename) throws IOException, JAXBException {
         DocList doclist;
