@@ -1,7 +1,7 @@
 
 package com.kelatev.imfx.model;
 
-import com.kelatev.imfx.util.DateAdapter;
+import com.kelatev.imfx.adpter.DateAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

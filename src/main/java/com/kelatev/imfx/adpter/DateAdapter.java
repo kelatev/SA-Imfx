@@ -1,4 +1,6 @@
-package com.kelatev.imfx.util;
+package com.kelatev.imfx.adpter;
+
+import com.kelatev.imfx.util.Constant;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.text.SimpleDateFormat;
