@@ -1,175 +1,140 @@
 package com.kelatev.imfx;
 
+import com.google.common.io.ByteStreams;
 import com.kelatev.imfx.util.Constant;
 import com.kelatev.imfx.model.Envelope;
 import com.kelatev.imfx.model.DocList;
+import com.kelatev.imfx.util.DateFormatTransformer;
+import org.simpleframework.xml.core.Persister;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.transform.RegistryMatcher;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import java.io.InputStream;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-/**
- * The type Imfx read.
- */
 public class ImfxRead {
     //https://www.ibm.com/developerworks/ru/library/x-javaxmlvalidapi/
 
+    private static Map<String, InputStream> files = new HashMap<String, InputStream>();
 
-    private static Envelope parseEnvelope(InputStream xmlFile) throws JAXBException {
-        JAXBContext context = JAXBContext.newInstance(Envelope.class);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        return (Envelope) unmarshaller.unmarshal(xmlFile);
+    public ImfxRead(InputStream imfx) throws IOException {
+        readFiles(new BufferedInputStream(imfx));
     }
 
-    private static DocList parseDoclist(InputStream xmlFile) throws JAXBException {
-        JAXBContext context = JAXBContext.newInstance(DocList.class);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        return (DocList) unmarshaller.unmarshal(xmlFile);
+    public ImfxRead(BufferedInputStream imfx) throws IOException {
+        readFiles(imfx);
     }
 
-    /**
-     * Read file input stream.
-     *
-     * @param fis      the fis
-     * @param fileName the file name
-     * @return input stream
-     * @throws IOException the io exception
-     */
-    public static InputStream readFile(BufferedInputStream fis, String fileName) throws IOException {
-        return readFile(fis, fileName, false);
+    public ImfxRead(byte[] imfx) throws IOException {
+        readFiles(new BufferedInputStream(new ByteArrayInputStream(imfx)));
     }
 
-    /**
-     * Read file input stream.
-     *
-     * @param imfx         the imfx
-     * @param fileName     the file name
-     * @param ignoreRegist the ignore regist
-     * @return input stream
-     * @throws IOException the io exception
-     */
-    public static InputStream readFile(BufferedInputStream imfx, String fileName, boolean ignoreRegist) throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    private void readFiles(BufferedInputStream imfx) throws IOException {
+        ByteArrayOutputStream baos = null;
+        ZipInputStream zis = null;
 
-        imfx.mark(0);
         try {
-            ZipInputStream zis = new ZipInputStream(imfx);
+            zis = new ZipInputStream(imfx);
             ZipEntry entry;
 
             while ((entry = zis.getNextEntry()) != null) {
-                if ((entry.getName().equals(fileName) && !ignoreRegist)
-                        || (entry.getName().equalsIgnoreCase(fileName) && ignoreRegist)) {
-                    int count;
-                    byte data[] = new byte[Constant.BUFFER];
+                baos = new ByteArrayOutputStream();
 
-                    while ((count = zis.read(data, 0, Constant.BUFFER)) != -1) {
-                        baos.write(data, 0, count);
-                    }
+                int count;
+                byte data[] = new byte[Constant.BUFFER];
+
+                while ((count = zis.read(data, 0, Constant.BUFFER)) != -1) {
+                    baos.write(data, 0, count);
                 }
+                InputStream is = new ByteArrayInputStream(baos.toByteArray());
+                baos.close();
+
+                files.put(entry.getName(), is);
             }
-            //zis.close();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        imfx.reset();
-
-        if (baos.size() > 0) {
-            InputStream is = new ByteArrayInputStream(baos.toByteArray());
-            baos.close();
-            return is;
-        } else {
-            return null;
+        } finally {
+            if (zis != null)
+                zis.close();
+            if (baos != null)
+                baos.close();
         }
     }
 
-    /**
-     * Has file boolean.
-     *
-     * @param fis          the fis
-     * @param fileName     the file name
-     * @param ignoreRegist the ignore regist
-     * @return boolean
-     */
-    public static boolean hasFile(BufferedInputStream fis, String fileName, boolean ignoreRegist) {
-        boolean result = false;
-        try {
-            ZipInputStream zis = new ZipInputStream(fis);
-            ZipEntry entry;
+    private static Envelope parseEnvelope(InputStream xmlFile) throws Exception {
+        RegistryMatcher matcher = new RegistryMatcher();
+        matcher.bind(Date.class, new DateFormatTransformer());
+        Serializer serializer = new Persister(matcher);
 
-            while ((entry = zis.getNextEntry()) != null) {
-                if ((entry.getName().equals(fileName) && !ignoreRegist)
-                        || (entry.getName().equalsIgnoreCase(fileName) && ignoreRegist)) {
-                    result = true;
-                }
-                zis.closeEntry();
+        return serializer.read(Envelope.class, xmlFile);
+    }
+
+    private static DocList parseDoclist(InputStream xmlFile) throws Exception {
+        RegistryMatcher matcher = new RegistryMatcher();
+        matcher.bind(Date.class, new DateFormatTransformer());
+
+        Serializer serializer = new Persister(matcher);
+        return serializer.read(DocList.class, xmlFile);
+    }
+
+    public boolean hasFile(String fileName, boolean ignoreRegist) {
+        for (Map.Entry<String, InputStream> file : files.entrySet()) {
+            if ((file.getKey().equals(fileName) && !ignoreRegist)
+                    || (file.getKey().equalsIgnoreCase(fileName) && ignoreRegist)) {
+                return true;
             }
-            zis.close();
-        } catch (Exception e) {
-        }
-        return result;
-    }
-
-    /**
-     * Read envelope envelope.
-     *
-     * @param imfx the imfx
-     * @return envelope
-     * @throws IOException   the io exception
-     * @throws JAXBException the jaxb exception
-     */
-    public static Envelope readEnvelope(BufferedInputStream imfx) throws IOException, JAXBException {
-        Envelope envelope;
-
-        InputStream envelope_xml = readFile(imfx, Constant.ENVELOPE_FILE_NAME, true);
-        envelope = parseEnvelope(envelope_xml);
-        if (envelope_xml != null) {
-            envelope_xml.close();
         }
 
-        return envelope;
+        return false;
     }
 
-    /**
-     * Read doclist doc list.
-     *
-     * @param imfx the imfx
-     * @return doc list
-     * @throws IOException   the io exception
-     * @throws JAXBException the jaxb exception
-     */
-    public static DocList readDoclist(BufferedInputStream imfx) throws IOException, JAXBException {
-        return readDoclist(imfx, Constant.DOCLIST_FILE_NAME);
+    public InputStream readFile(String fileName) {
+        return readFile(fileName, false);
     }
 
-    /**
-     * Read doclist doc list.
-     *
-     * @param imfx     the imfx
-     * @param filename the filename
-     * @return doc list
-     * @throws IOException   the io exception
-     * @throws JAXBException the jaxb exception
-     */
-    public static DocList readDoclist(BufferedInputStream imfx, String filename) throws IOException, JAXBException {
-        DocList doclist;
+    public InputStream readFile(String fileName, boolean ignoreRegist) {
+        for (Map.Entry<String, InputStream> file : files.entrySet()) {
+            if ((file.getKey().equals(fileName) && !ignoreRegist)
+                    || (file.getKey().equalsIgnoreCase(fileName) && ignoreRegist)) {
+                return file.getValue();
+            }
+        }
 
+        return null;
+    }
+
+    public byte[] readFileByte(String fileName) throws IOException {
+        return readFileByte(fileName, false);
+    }
+
+    public byte[] readFileByte(String fileName, boolean ignoreRegist) throws IOException {
+        for (Map.Entry<String, InputStream> file : files.entrySet()) {
+            if ((file.getKey().equals(fileName) && !ignoreRegist)
+                    || (file.getKey().equalsIgnoreCase(fileName) && ignoreRegist)) {
+                return ByteStreams.toByteArray(file.getValue());
+            }
+        }
+
+        return null;
+    }
+
+    public Envelope readEnvelope() throws Exception {
+        return parseEnvelope(readFile(Constant.ENVELOPE_FILE_NAME, true));
+    }
+
+    public DocList readDoclist() throws Exception {
+        return readDoclist(Constant.DOCLIST_FILE_NAME);
+    }
+
+    public DocList readDoclist(String filename) throws Exception {
         if ("".equals(filename)) {
             filename = Constant.DOCLIST_FILE_NAME;
         }
 
-        InputStream doclist_xml = readFile(imfx, filename, false);
-        doclist = parseDoclist(doclist_xml);
-        if (doclist_xml != null) {
-            doclist_xml.close();
-        }
-
-        return doclist;
+        return parseDoclist(readFile(filename, false));
     }
 }
