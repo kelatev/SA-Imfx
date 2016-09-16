@@ -3,19 +3,16 @@ package com.kelatev.imfx;
 import com.kelatev.imfx.util.Constant;
 import com.kelatev.imfx.model.DocList;
 import com.kelatev.imfx.model.Envelope;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
+import com.kelatev.imfx.util.DateFormatTransformer;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
+import org.simpleframework.xml.transform.RegistryMatcher;
 
-import javax.print.Doc;
-import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -52,16 +49,14 @@ public class ImfxWriteStream {
         addDoclist(docList);
     }
 
-    public void addDoclist(DocList docList, OutputStream sign) throws IOException, SAXException, JAXBException {
+    public void addDoclist(DocList docList, OutputStream sign) throws Exception {
         OutputStream fileStream = null;
 
-        JAXBContext jaxbContext = JAXBContext.newInstance(DocList.class);
-        SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = schemaFactory.newSchema(new File("doclist.xsd"));
+        RegistryMatcher matcher = new RegistryMatcher();
+        matcher.bind(Date.class, new DateFormatTransformer());
+        Serializer serializer = new Persister(matcher);
 
-        Marshaller marshaller = jaxbContext.createMarshaller();
-        marshaller.setSchema(schema);
-        marshaller.marshal(docList, fileStream);
+        serializer.write(docList, fileStream);
 
         writeFile(fileStream, Constant.DOCLIST_FILE_NAME, sign);
     }
@@ -70,16 +65,14 @@ public class ImfxWriteStream {
         addEnvelope(envelope);
     }
 
-    public void addEnvelope(Envelope envelope, OutputStream sign) throws IOException, SAXException, JAXBException {
+    public void addEnvelope(Envelope envelope, OutputStream sign) throws Exception {
         OutputStream fileStream = null;
 
-        JAXBContext jaxbContext = JAXBContext.newInstance(Envelope.class);
-        SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = schemaFactory.newSchema(new File("envelope.xsd"));
+        RegistryMatcher matcher = new RegistryMatcher();
+        matcher.bind(Date.class, new DateFormatTransformer());
+        Serializer serializer = new Persister(matcher);
 
-        Marshaller marshaller = jaxbContext.createMarshaller();
-        marshaller.setSchema(schema);
-        marshaller.marshal(envelope, fileStream);
+        serializer.write(envelope, fileStream);
 
         writeFile(fileStream, Constant.ENVELOPE_FILE_NAME, sign);
     }

@@ -47,7 +47,7 @@ public class ImfxWriteByte {
     }
 
     public void addDoclist(DocList docList, byte[] sign) throws Exception {
-        OutputStream fileStream = new ByteArrayOutputStream();
+        OutputStream fileStream = null;
 
         RegistryMatcher matcher = new RegistryMatcher();
         matcher.bind(Date.class, new DateFormatTransformer());
@@ -65,7 +65,7 @@ public class ImfxWriteByte {
     }
 
     public void addEnvelope(Envelope envelope, byte[] sign) throws Exception {
-        OutputStream fileStream = new ByteArrayOutputStream();
+        OutputStream fileStream = null;
 
         RegistryMatcher matcher = new RegistryMatcher();
         matcher.bind(Date.class, new DateFormatTransformer());
