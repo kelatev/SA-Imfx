@@ -1,4 +1,6 @@
-# README #
+# SA Imfx #
+
+[![Build Status](https://travis-ci.org/kelatev/SA-Imfx.svg?branch=master)](https://travis-ci.org/kelatev/SA-Imfx)
 
 Imfx Library for Java. Can read and write file of Ukraine customs
 
