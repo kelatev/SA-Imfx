@@ -1,4 +1,4 @@
-package com.kelatev.imfx;
+package com.kelatev.imfx.util;
 
 import java.io.BufferedReader;
 import java.io.File;

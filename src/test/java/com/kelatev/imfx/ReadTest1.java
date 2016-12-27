@@ -3,6 +3,7 @@ package com.kelatev.imfx;
 import com.kelatev.imfx.model.DocList;
 import com.kelatev.imfx.model.Envelope;
 import com.kelatev.imfx.util.Constant;
+import com.kelatev.imfx.util.ResourceFile;
 import org.junit.*;
 
 import java.io.*;

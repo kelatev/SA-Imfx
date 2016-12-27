@@ -1,6 +1,5 @@
 package com.kelatev.imfx;
 
-import com.google.common.io.ByteStreams;
 import com.kelatev.imfx.util.Constant;
 import com.kelatev.imfx.model.Envelope;
 import com.kelatev.imfx.model.DocList;
@@ -115,7 +114,19 @@ public class ImfxRead {
         for (Map.Entry<String, InputStream> file : files.entrySet()) {
             if ((file.getKey().equals(fileName) && !ignoreRegist)
                     || (file.getKey().equalsIgnoreCase(fileName) && ignoreRegist)) {
-                return ByteStreams.toByteArray(file.getValue());
+
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+                int nRead;
+                byte[] data = new byte[16384];
+
+                while ((nRead = file.getValue().read(data, 0, data.length)) != -1) {
+                    buffer.write(data, 0, nRead);
+                }
+
+                buffer.flush();
+
+                return buffer.toByteArray();
             }
         }
 
