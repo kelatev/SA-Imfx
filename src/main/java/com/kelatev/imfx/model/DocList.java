@@ -26,22 +26,8 @@ public class DocList {
     @Attribute(name = "version")
     private Byte version;
 
+
     public DocList(){}
-    public DocList(@Element(name = "SenderCode") String senderCode,
-                   @Element(name = "SenderName") String senderName,
-                   @Element(name = "SenderProgName") String senderProgName,
-                   @Element(name = "SenderProgVer") String senderProgVer,
-                   @Element(name = "CreationDate") Date creationDate,
-                   @ElementList(inline=true) List<Document> document,
-                   @Attribute(name = "version") Byte version) {
-        this.senderCode = senderCode;
-        this.senderName = senderName;
-        this.senderProgName = senderProgName;
-        this.senderProgVer = senderProgVer;
-        this.creationDate = creationDate;
-        this.document = document;
-        this.version = version;
-    }
 
     public String getSenderCode() {
         return senderCode;

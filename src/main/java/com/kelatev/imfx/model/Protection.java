@@ -15,13 +15,6 @@ public class Protection {
 
 
     public Protection(){}
-    public Protection(@Element(name = "MethodID") int methodID,
-                      @Element(name = "SelfSigned") byte selfSigned,
-                      @Element(name = "SignFileName") String signFileName) {
-        this.methodID = methodID;
-        this.selfSigned = selfSigned;
-        this.signFileName = signFileName;
-    }
 
     public int getMethodID() {
         return methodID;

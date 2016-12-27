@@ -30,27 +30,6 @@ public class Document {
 
 
     public Document() {}
-    public Document(@Element(name = "ID") int id,
-                    @Element(name = "ParentID") int parentId,
-                    @Element(name = "DocCode") int docCode,
-                    @Element(name = "DocNumber") String docNumber,
-                    @Element(name = "Description") String description,
-                    @Element(name = "ModificationDate") Date modificationDate,
-                    @Element(name = "FileName") String fileName,
-                    @Element(name = "Comment") String comment,
-                    @Element(name = "CRC") int crc,
-                    @Element(name = "Protection") Protection protection) {
-        this.id = id;
-        this.parentId = parentId;
-        this.docCode = docCode;
-        this.docNumber = docNumber;
-        this.description = description;
-        this.modificationDate = modificationDate;
-        this.fileName = fileName;
-        this.comment = comment;
-        this.crc = crc;
-        this.protection = protection;
-    }
 
     public int getID() {
         return id;

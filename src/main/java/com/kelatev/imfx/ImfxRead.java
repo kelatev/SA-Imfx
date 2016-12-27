@@ -76,8 +76,8 @@ public class ImfxRead {
     private static DocList parseDoclist(InputStream xmlFile) throws Exception {
         RegistryMatcher matcher = new RegistryMatcher();
         matcher.bind(Date.class, new DateFormatTransformer());
-
         Serializer serializer = new Persister(matcher);
+
         return serializer.read(DocList.class, xmlFile);
     }
 
@@ -96,10 +96,10 @@ public class ImfxRead {
         return readFile(fileName, false);
     }
 
-    public InputStream readFile(String fileName, boolean ignoreRegist) {
+    public InputStream readFile(String fileName, boolean ignoreRegister) {
         for (Map.Entry<String, InputStream> file : files.entrySet()) {
-            if ((file.getKey().equals(fileName) && !ignoreRegist)
-                    || (file.getKey().equalsIgnoreCase(fileName) && ignoreRegist)) {
+            if ((file.getKey().equals(fileName) && !ignoreRegister)
+                    || (file.getKey().equalsIgnoreCase(fileName) && ignoreRegister)) {
                 return file.getValue();
             }
         }

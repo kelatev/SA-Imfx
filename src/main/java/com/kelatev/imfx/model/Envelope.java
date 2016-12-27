@@ -32,27 +32,6 @@ public class Envelope {
 
 
     public Envelope(){}
-    public Envelope(@Element(name = "MessageId") String messageId,
-                    @Element(name = "ReplyId") String replyId,
-                    @Element(name = "Sender") String sender,
-                    @Element(name = "Receiver") String receiver,
-                    @Element(name = "CreationDate") Date creationDate,
-                    @Element(name = "Direction") byte direction,
-                    @Element(name = "MsgType") int msgType,
-                    @Element(name = "Comment") String comment,
-                    @Element(name = "DocListFile") DocListFile docListFile,
-                    @Attribute(name = "version") short version) {
-        this.messageId = messageId;
-        this.replyId = replyId;
-        this.sender = sender;
-        this.receiver = receiver;
-        this.creationDate = creationDate;
-        this.direction = direction;
-        this.msgType = msgType;
-        this.comment = comment;
-        this.docListFile = docListFile;
-        this.version = version;
-    }
 
     public String getMessageId() {
         return messageId;

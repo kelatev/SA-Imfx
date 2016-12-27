@@ -13,11 +13,6 @@ public class DocListFile {
 
 
     public DocListFile(){}
-    public DocListFile(@Element(name = "FileName") String fileName,
-                       @Element(name = "Protection") Protection protection) {
-        this.fileName = fileName;
-        this.protection = protection;
-    }
 
     public String getFileName() {
         return fileName;
