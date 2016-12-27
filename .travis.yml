@@ -1,5 +1,7 @@
 language: java
 
+sudo: false
+
 script: gradle check
 
 before_cache:
