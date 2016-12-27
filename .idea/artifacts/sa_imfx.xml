@@ -1,6 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="sa_imfx">
-    <output-path>$PROJECT_DIR$/out/artifacts/sa_imfx</output-path>
-    <root id="archive" name="sa_imfx.jar" />
-  </artifact>
-</component>
