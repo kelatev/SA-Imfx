@@ -1,6 +1,6 @@
 language: java
 
-script: gradle assemble check
+script: gradle check
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
