@@ -1,0 +1,34 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="DocList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:int" name="SenderCode"/>
+        <xs:element type="xs:string" name="SenderName"/>
+        <xs:element type="xs:string" name="CreationDate"/>
+        <xs:element name="Document">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:byte" name="ID"/>
+              <xs:element type="xs:byte" name="DocCode"/>
+              <xs:element type="xs:short" name="DocNumber"/>
+              <xs:element type="xs:string" name="ModificationDate"/>
+              <xs:element type="xs:string" name="FileName"/>
+              <xs:element type="xs:string" name="Comment"/>
+              <xs:element type="xs:int" name="CRC"/>
+              <xs:element name="Protection">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:byte" name="MethodID"/>
+                    <xs:element type="xs:byte" name="SelfSigned"/>
+                    <xs:element type="xs:string" name="SignFileName"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:byte" name="version"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
